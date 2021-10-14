@@ -1,9 +1,9 @@
 let http = require('http');
+const { getUsers, addUsers } = require('./repository');
 
-let server = http.createServer((req, res) => {
-    //    console.log('text from console');
 
-    // Set CORS headers
+// Set CORS headers
+let cors = (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Request-Method', '*');
     res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
@@ -11,13 +11,24 @@ let server = http.createServer((req, res) => {
     if (req.method === 'OPTIONS') {
         res.writeHead(200);
         res.end();
-        return;
+        return true;
     }
+    return false;
+}
+
+let server = http.createServer((req, res) => {
+
+    if (cors(req, res)) return;
 
     switch (req.url) {
         case "/users":
-            res.write(`[{"id": 1, "banned": true, "name": "Boris"}, {"id": 2, "name": "Olya"}]`)
-            break
+            if (req.method === "POST") {
+                addUsers('Gleb');
+                res.write(JSON.stringify({ success: true }));
+            } else {
+                res.write(JSON.stringify(getUsers()));
+            }
+            break;
         case "/task":
             res.write(`tasks`)
             break
