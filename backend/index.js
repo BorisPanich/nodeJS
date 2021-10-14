@@ -16,7 +16,7 @@ let server = http.createServer((req, res) => {
 
     switch (req.url) {
         case "/users":
-            res.write(`[{"id": 1, "banned": true, name: "Boris"}, {"id": 2, name: "Olya"}]`)
+            res.write(`[{"id": 1, "banned": true, "name": "Boris"}, {"id": 2, "name": "Olya"}]`)
             break
         case "/task":
             res.write(`tasks`)

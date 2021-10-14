@@ -7,7 +7,7 @@ function App() {
 
   useEffect(() => {
     axios.get("http://localhost:8844/users").then(res => {
-      setUsers(res.data)
+    setUsers(res.data)
     })
   }, [])
 
