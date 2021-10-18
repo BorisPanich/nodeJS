@@ -1,15 +1,13 @@
 const fs = require("fs");
 
-// const getUsers = () => {
-//     return users;
-// }
-
-
 // retrieving "users" from file
-const getUsers = (callback) => {
-    fs.readFile("users.json", function (err, buf) {
-        callback(buf.toString());
-    });
+const getUsers = () => {
+    let promise = new Promise((resolve, reject) => {
+        fs.readFile("users.json", function (err, buf) {
+            resolve(JSON.parse(buf.toString()));
+        });
+    })
+    return promise;
 }
 
 const addUser = (name) => {
