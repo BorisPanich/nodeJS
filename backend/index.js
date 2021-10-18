@@ -1,6 +1,5 @@
 let http = require('http');
-const { getUsers, addUsers } = require('./repository');
-
+const { usersController } = require('./usersController');
 
 // Set CORS headers
 let cors = (req, res) => {
@@ -16,31 +15,25 @@ let cors = (req, res) => {
     return false;
 }
 
+
 let server = http.createServer((req, res) => {
 
     if (cors(req, res)) return;
 
     switch (req.url) {
         case "/users":
-            if (req.method === "POST") {
-                addUsers('Gleb');
-                res.write(JSON.stringify({ success: true }));
-            } else {
-                res.write(JSON.stringify(getUsers()));
-            }
+            usersController(req, res)
             break;
-        case "/task":
-            res.write(`tasks`)
+        case "/lessons":
+            res.write("tasks")
             break
         default:
             res.write("Page not found")
     }
 
-    res.end()
-
-    console.log('same request');
+    // it is impossible, since there is
+    // an asynchronous request above (usersController)
+    // res.end()
 })
 
 server.listen(8844)
-
-console.log(http);
