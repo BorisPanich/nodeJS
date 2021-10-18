@@ -1,6 +1,11 @@
 let http = require('http');
 const { usersController } = require('./usersController');
 
+process.on('unhandledRejection', function (reason, p) {
+    // Will print "unhandledRejection err is not defined"
+    console.log(reason, p);
+});
+
 // Set CORS headers
 let cors = (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
