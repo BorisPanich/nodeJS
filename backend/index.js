@@ -26,14 +26,15 @@ let server = http.createServer((req, res) => {
     if (cors(req, res)) return;
 
     switch (req.url) {
-        case "/users":
-            usersController(req, res)
+        case '/users': usersController(req, res)
             break;
-        case "/lessons":
-            res.write("tasks")
+        case '/tasks':
+            res.write('tasks')
+            res.end()
             break
         default:
             res.write("Page not found")
+            res.end()
     }
 
     // it is impossible, since there is
@@ -41,4 +42,5 @@ let server = http.createServer((req, res) => {
     // res.end()
 })
 
+// start server
 server.listen(8844)

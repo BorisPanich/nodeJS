@@ -8,7 +8,7 @@ const getUsers = () => {
 
 const addUser = async (name) => {
     let users = await getUsers();
-    users.push({ name: name });
+    users.push({ id: users.length, name: name });
     return writeJsonFromFile("db", users)
 }
 
